@@ -2,6 +2,8 @@ package fr.gsb.rv.dr;
 
 import java.util.Optional;
 
+import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.technique.Session;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -24,6 +26,20 @@ import javafx.stage.Stage;
 
 public class Appli extends Application {
 
+    Session session;
+
+    MenuBar barreMenus = new MenuBar();
+    Menu menuFichier = new Menu("Fichier");
+    Menu menuRapports = new Menu("Rapports");
+    Menu menuPraticiens = new Menu("Praticiens");
+
+    MenuItem itemSeConnecter = new MenuItem("Se connecter");
+    MenuItem itemSeDeconnecter = new MenuItem("Se déconnecter");
+    MenuItem itemQuitter = new MenuItem("Quitter");
+
+    MenuItem itemConsulter = new MenuItem("Consulter");
+    MenuItem itemHesitant = new MenuItem("Hésitants");
+
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
@@ -39,9 +55,6 @@ public class Appli extends Application {
         StackPane root = new StackPane();
         BorderPane topPane = new BorderPane();
 
-        // System.out.println();
-        // System.out.println(creerMenuBar().getMenus().get(0));
-
         topPane.setTop(creerMenuBar());
 
         root.getChildren().add(topPane);
@@ -53,24 +66,36 @@ public class Appli extends Application {
     }
 
     private MenuBar creerMenuBar() {
-        MenuBar barreMenus = new MenuBar();
-        Menu menuFichier = new Menu("Fichier");
-        Menu menuRapports = new Menu("Rapports");
-        Menu menuPraticiens = new Menu("Praticiens");
-
-        MenuItem itemSeConnecter = new MenuItem("Se connecter");
-        MenuItem itemSeDeconnecter = new MenuItem("Se déconnecter");
-        MenuItem itemQuitter = new MenuItem("Quitter");
-        itemQuitter.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
-
-        MenuItem itemConsulter = new MenuItem("Consulter");
-        MenuItem itemHesitant = new MenuItem("Hésitants");
-
         menuFichier.getItems().addAll(itemSeConnecter, itemSeDeconnecter);
         menuFichier.getItems().add(new SeparatorMenuItem());
         menuFichier.getItems().addAll(itemQuitter);
         menuRapports.getItems().add(itemConsulter);
         menuPraticiens.getItems().add(itemHesitant);
+
+        itemSeConnecter.setDisable(false);
+        itemSeDeconnecter.setDisable(true);
+        menuRapports.setDisable(true);
+        menuPraticiens.setDisable(true);
+
+        itemQuitter.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
+
+        itemSeConnecter.setOnAction(actionEvent -> {
+            Session.ouvrir(new Visiteur("a17", "Andre", "David"));
+            session = Session.getSession();
+
+            itemSeConnecter.setDisable(true);
+            itemSeDeconnecter.setDisable(false);
+            menuRapports.setDisable(false);
+            menuPraticiens.setDisable(false);
+        });
+
+        itemSeDeconnecter.setOnAction(actionEvent -> {
+            Session.fermer();
+            itemSeConnecter.setDisable(false);
+            itemSeDeconnecter.setDisable(true);
+            menuRapports.setDisable(true);
+            menuPraticiens.setDisable(true);
+        });
 
         itemQuitter.setOnAction(actionEvent -> {
             Alert alertQuitter = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous quitter l'application ?",
@@ -83,12 +108,6 @@ public class Appli extends Application {
                 Platform.exit();
             }
         });
-
-        // itemSeConnecter.setOnAction(actionEvent -> {
-        // });
-
-        // itemSeDeconnecter.setOnAction(actionEvent -> {
-        // });
 
         barreMenus.getMenus().addAll(menuFichier, menuRapports, menuPraticiens);
 
