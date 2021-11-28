@@ -9,13 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
 public class VueConnexion extends Dialog<Pair<String, String>> {
 
-    VueConnexion() {
+    boolean identifiantsIncorrects = false;
+
+    VueConnexion(boolean identifiantIncorrect) {
         super();
         this.setTitle("Authentification");
         GridPane grid = new GridPane();
@@ -37,6 +40,12 @@ public class VueConnexion extends Dialog<Pair<String, String>> {
 
         PasswordField mdpField = new PasswordField();
         grid.add(mdpField, 1, 2);
+
+        if (identifiantIncorrect) {
+            Label identifiantsInvalides = new Label("Identifiants invalides.");
+            identifiantsInvalides.setTextFill(Color.RED);
+            grid.add(identifiantsInvalides, 1, 3);
+        }
 
         ButtonType btnConnexion = new ButtonType("Se connecter", ButtonData.OK_DONE);
         ButtonType btnAnnuler = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);

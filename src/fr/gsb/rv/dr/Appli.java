@@ -26,32 +26,39 @@ import javafx.util.Pair;
 
 public class Appli extends Application {
 
-    Session session;
-    Visiteur visiteur;
+    private Session session;
+    private Visiteur visiteur;
 
-    Stage primaryStage;
+    private Stage primaryStage;
+    private StackPane root = new StackPane();
+    private BorderPane contentPane = new BorderPane();
 
-    MenuBar barreMenus = new MenuBar();
-    Menu menuFichier = new Menu("Fichier");
-    Menu menuRapports = new Menu("Rapports");
-    Menu menuPraticiens = new Menu("Praticiens");
+    private PanneauAccueil vueAccueil = new PanneauAccueil();
+    private PanneauRapports vueRapports = new PanneauRapports();
+    private PanneauPraticiens vuePraticiens = new PanneauPraticiens();
 
-    MenuItem itemSeConnecter = new MenuItem("Se connecter");
-    MenuItem itemSeDeconnecter = new MenuItem("Se déconnecter");
-    MenuItem itemQuitter = new MenuItem("Quitter");
+    private MenuBar barreMenus = new MenuBar();
 
-    MenuItem itemConsulter = new MenuItem("Consulter");
-    MenuItem itemHesitant = new MenuItem("Hésitants");
+    private Menu menuFichier = new Menu("Fichier");
+    private Menu menuRapports = new Menu("Rapports");
+    private Menu menuPraticiens = new Menu("Praticiens");
+
+    private MenuItem itemSeConnecter = new MenuItem("Se connecter");
+    private MenuItem itemSeDeconnecter = new MenuItem("Se déconnecter");
+    private MenuItem itemQuitter = new MenuItem("Quitter");
+    private MenuItem itemConsulter = new MenuItem("Consulter");
+    private MenuItem itemHesitant = new MenuItem("Hésitants");
 
     @Override
     public void start(Stage stage) {
         primaryStage = stage;
-        StackPane root = new StackPane();
-        BorderPane topPane = new BorderPane();
 
-        topPane.setTop(creerMenuBar());
-        root.getChildren().add(topPane);
-        Scene scene = new Scene(root, 300, 250);
+        contentPane.setTop(creerMenuBar());
+        contentPane.setCenter(vueAccueil);
+
+        root.getChildren().add(contentPane);
+
+        Scene scene = new Scene(root, 1280, 720);
 
         primaryStage.setTitle("GSB-RV-DR");
         primaryStage.setScene(scene);
@@ -73,7 +80,7 @@ public class Appli extends Application {
         itemQuitter.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
 
         itemSeConnecter.setOnAction(actionEvent -> {
-            this.authentification();
+            this.authentification(false);
         });
 
         itemSeDeconnecter.setOnAction(actionEvent -> {
@@ -84,6 +91,7 @@ public class Appli extends Application {
             menuPraticiens.setDisable(true);
 
             primaryStage.setTitle("GSB-RV-DR");
+            contentPane.setCenter(vueAccueil);
         });
 
         itemQuitter.setOnAction(actionEvent -> {
@@ -100,10 +108,12 @@ public class Appli extends Application {
 
         itemConsulter.setOnAction(ActionEvent -> {
             System.out.println("[Rapports]" + visiteur.getPrenom() + " " + visiteur.getNom());
+            contentPane.setCenter(vueRapports);
         });
 
         itemHesitant.setOnAction(ActionEvent -> {
             System.out.println("[Praticiens]" + visiteur.getPrenom() + " " + visiteur.getNom());
+            contentPane.setCenter(vuePraticiens);
         });
 
         barreMenus.getMenus().addAll(menuFichier, menuRapports, menuPraticiens);
@@ -111,9 +121,8 @@ public class Appli extends Application {
         return barreMenus;
     }
 
-    private void authentification() {
-
-        VueConnexion vueConnexion = new VueConnexion();
+    private void authentification(boolean identifiantsIncorrects) {
+        VueConnexion vueConnexion = new VueConnexion(identifiantsIncorrects);
         Optional<Pair<String, String>> reponse = vueConnexion.showAndWait();
         if (reponse.isPresent()) {
             try {
@@ -134,6 +143,7 @@ public class Appli extends Application {
                 primaryStage.setTitle(visiteur.getPrenom() + " " + visiteur.getNom());
             } else {
                 System.out.println("Identifiants incorrect");
+                this.authentification(true);
             }
         }
     }
