@@ -16,16 +16,38 @@ public class ModeleGsbRv {
 
         Connection connexion = ConnexionBD.getConnexion();
 
-        String requete = "select vis_nom " + "from Visiteur " + "where vis_matricule = ?";
+        String requete = """
+                    SELECT t.vis_matricule,
+                    t.tra_role,
+                    t.jjmmaa,
+                    v.vis_prenom,
+                    v.vis_nom
+                FROM Travailler t
+                    INNER JOIN (
+                        SELECT tra_role,
+                            vis_matricule,
+                            MAX(jjmmaa) AS jjmmaa
+                        FROM Travailler
+                        GROUP BY vis_matricule
+                    ) AS s
+                    INNER JOIN Visiteur AS v ON s.vis_matricule = t.vis_matricule
+                    AND t.jjmmaa = s.jjmmaa
+                    AND v.vis_matricule = t.vis_matricule
+                WHERE t.tra_role = 'Délégué'
+                    AND v.vis_matricule = ?
+                    AND v.vis_mdp = ?
+                            """;
 
         try {
             PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement(requete);
             requetePreparee.setString(1, matricule);
+            requetePreparee.setString(2, mdp);
             ResultSet resultat = requetePreparee.executeQuery();
             if (resultat.next()) {
                 Visiteur visiteur = new Visiteur();
-                visiteur.setMatricule(matricule);
+                visiteur.setMatricule(resultat.getString("vis_matricule"));
                 visiteur.setNom(resultat.getString("vis_nom"));
+                visiteur.setPrenom(resultat.getString("vis_prenom"));
 
                 requetePreparee.close();
                 return visiteur;

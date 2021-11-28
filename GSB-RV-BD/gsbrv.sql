@@ -1,3 +1,6 @@
+drop database if exists gsbrv;
+create database gsbrv;
+use gsbrv;
 -- MySQL dump 10.13  Distrib 5.5.62, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: gsbrv
@@ -1606,13 +1609,24 @@ CREATE TABLE `RapportVisite` (
   `rap_date_visite` date NOT NULL,
   `rap_bilan` varchar(510) DEFAULT '',
   `pra_num` int(11) DEFAULT NULL,
+  `mot_code` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`vis_matricule`, `rap_num`),
   KEY `FK_RAPPORT_VISITE_PRATICIEN` (`pra_num`),
   CONSTRAINT `FK_RAPPORT_VISITE_PRATICIEN` FOREIGN KEY (`pra_num`) REFERENCES `Praticien` (`pra_num`),
-  CONSTRAINT `FK_RAPPORT_VISITE_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`)
+  CONSTRAINT `FK_RAPPORT_VISITE_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`),
+  CONSTRAINT `FK_RAPPORT_MOTIF` FOREIGN KEY (`mot_code`) REFERENCES `Motif` (`mot_code`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
+--
+-- Table structure for table `Motif`
+--
+DROP TABLE IF EXISTS `Motif`;
+CREATE TABLE `Motif` (
+  `mot_code` varchar(10) NOT NULL DEFAULT '',
+  `mot_libelle` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`mot_code`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 --
 -- Dumping data for table `RapportVisite`
 --

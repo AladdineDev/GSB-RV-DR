@@ -3,14 +3,13 @@ package fr.gsb.rv.dr;
 import java.util.Optional;
 
 import fr.gsb.rv.dr.entites.Visiteur;
+import fr.gsb.rv.dr.modeles.ModeleGsbRv;
+import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
@@ -23,10 +22,14 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class Appli extends Application {
 
     Session session;
+    Visiteur visiteur;
+
+    Stage primaryStage;
 
     MenuBar barreMenus = new MenuBar();
     Menu menuFichier = new Menu("Fichier");
@@ -41,22 +44,12 @@ public class Appli extends Application {
     MenuItem itemHesitant = new MenuItem("Hésitants");
 
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("GSB-RV-DR");
-            }
-        });
-
+    public void start(Stage stage) {
+        primaryStage = stage;
         StackPane root = new StackPane();
         BorderPane topPane = new BorderPane();
 
         topPane.setTop(creerMenuBar());
-
         root.getChildren().add(topPane);
         Scene scene = new Scene(root, 300, 250);
 
@@ -80,13 +73,7 @@ public class Appli extends Application {
         itemQuitter.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
 
         itemSeConnecter.setOnAction(actionEvent -> {
-            Session.ouvrir(new Visiteur("a17", "Andre", "David"));
-            session = Session.getSession();
-
-            itemSeConnecter.setDisable(true);
-            itemSeDeconnecter.setDisable(false);
-            menuRapports.setDisable(false);
-            menuPraticiens.setDisable(false);
+            this.authentification();
         });
 
         itemSeDeconnecter.setOnAction(actionEvent -> {
@@ -95,6 +82,8 @@ public class Appli extends Application {
             itemSeDeconnecter.setDisable(true);
             menuRapports.setDisable(true);
             menuPraticiens.setDisable(true);
+
+            primaryStage.setTitle("GSB-RV-DR");
         });
 
         itemQuitter.setOnAction(actionEvent -> {
@@ -109,9 +98,44 @@ public class Appli extends Application {
             }
         });
 
+        itemConsulter.setOnAction(ActionEvent -> {
+            System.out.println("[Rapports]" + visiteur.getPrenom() + " " + visiteur.getNom());
+        });
+
+        itemHesitant.setOnAction(ActionEvent -> {
+            System.out.println("[Praticiens]" + visiteur.getPrenom() + " " + visiteur.getNom());
+        });
+
         barreMenus.getMenus().addAll(menuFichier, menuRapports, menuPraticiens);
 
         return barreMenus;
+    }
+
+    private void authentification() {
+
+        VueConnexion vueConnexion = new VueConnexion();
+        Optional<Pair<String, String>> reponse = vueConnexion.showAndWait();
+        if (reponse.isPresent()) {
+            try {
+                visiteur = ModeleGsbRv.seConnecter(reponse.get().getKey(), reponse.get().getValue());
+            } catch (ConnexionException e) {
+                e.printStackTrace();
+            }
+            if (visiteur != null) {
+                Session.ouvrir(visiteur);
+                session = Session.getSession();
+                visiteur = session.getLeVisiteur();
+
+                itemSeConnecter.setDisable(true);
+                itemSeDeconnecter.setDisable(false);
+                menuRapports.setDisable(false);
+                menuPraticiens.setDisable(false);
+
+                primaryStage.setTitle(visiteur.getPrenom() + " " + visiteur.getNom());
+            } else {
+                System.out.println("Identifiants incorrect");
+            }
+        }
     }
 
     public static void main(String[] args) {
