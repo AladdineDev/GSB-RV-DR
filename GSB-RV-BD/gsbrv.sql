@@ -1608,6 +1608,7 @@ CREATE TABLE `RapportVisite` (
   `rap_num` int(11) NOT NULL DEFAULT '0',
   `rap_date_visite` date NOT NULL,
   `rap_bilan` varchar(510) DEFAULT '',
+  `rap_coefficient` int NOT NULL,
   `pra_num` int(11) DEFAULT NULL,
   `mot_code` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`vis_matricule`, `rap_num`),

@@ -1,4 +1,5 @@
 use gsbrv;
+--- Boite de dialogue --- 
 --
 -- 3 -- Matricule des visiteurs qui occupent ou qui ont occupé le poste de DR
 --
@@ -28,3 +29,24 @@ FROM Travailler t
 WHERE t.tra_role = 'Délégué'
     AND v.vis_matricule = ?
     AND v.vis_mdp = ?;
+--- Table ---
+--
+-- 2 -- Liste des praticiens hésitants
+--
+SELECT p.pra_num,
+    p.pra_nom,
+    p.pra_ville,
+    p.pra_coefnotoriete,
+    rv.rap_date_visite,
+    rv.rap_coefficient
+FROM Praticien p
+    INNER JOIN (
+        SELECT MAX(rap_date_visite) AS rap_date_visite,
+            MAX(rap_coefficient) AS rap_coefficient
+        FROM RapportVisite
+        GROUP BY rap_num
+    ) AS r
+    INNER JOIN RapportVisite as rv ON p.pra_num = rv.pra_num
+WHERE rv.rap_date_visite = r.rap_date_visite
+    AND rv.rap_coefficient = r.rap_coefficient
+    AND rv.rap_coefficient BETWEEN 4 AND 6;
