@@ -24,7 +24,8 @@ VALUES (
         "L'entrevue à durée 35 minutes, et le praticien a été receptif.",
         3,
         57,
-        "PERIO"
+        "PERIO",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -34,7 +35,8 @@ VALUES (
         "L'entrevue à durée 20 minutes, et le praticien n'a pas été receptif.",
         2,
         53,
-        "NOUV"
+        "NOUV",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -44,7 +46,8 @@ VALUES (
         "L'entrevue à durée 2 minutes, et le praticien m'a chassé de son cabinet.",
         0,
         8,
-        "REMON"
+        "REMON",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -54,7 +57,8 @@ VALUES (
         "L'entrevue à durée 45 minutes, et le praticien a été très enthousiaste.",
         5,
         13,
-        "NOUV"
+        "NOUV",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -64,7 +68,8 @@ VALUES (
         "L'entrevue n'a durée que 15 minutes, car le praticien n'a pas souhaité poursuivre.",
         1,
         18,
-        "NOUV"
+        "NOUV",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -74,7 +79,8 @@ VALUES (
         "L'entrevue à durée 25 minutes, et le praticien était hésitant.",
         2,
         62,
-        "PERIO"
+        "PERIO",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -84,7 +90,8 @@ VALUES (
         "L'entrevue à durée 40 minutes, et une autre visite a été planifié avec le praticien.",
         5,
         69,
-        "SOLI"
+        "SOLI",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -94,7 +101,8 @@ VALUES (
         "L'entrevue à durée 20 minutes, et le praticien n'a pas été receptif.",
         2,
         84,
-        "NOUV"
+        "NOUV",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -104,7 +112,8 @@ VALUES (
         "L'entrevue à durée 2 minutes, et le praticien m'a chassé de son cabinet.",
         0,
         30,
-        "REMON"
+        "REMON",
+        false
     );
 INSERT INTO RapportVisite
 VALUES (
@@ -114,5 +123,6 @@ VALUES (
         "L'entrevue à durée 40 minutes, et une autre visite a été planifié avec le praticien.",
         5,
         36,
-        "SOLI"
+        "SOLI",
+        false
     );

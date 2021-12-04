@@ -50,3 +50,27 @@ FROM Praticien p
 WHERE rv.rap_date_visite = r.rap_date_visite
     AND rv.rap_coefficient = r.rap_coefficient
     AND rv.rap_coefficient BETWEEN 4 AND 6;
+--- Table réactive ---
+--
+-- 1.a -- Liste des visiteurs
+--
+SELECT vis_matricule,
+    vis_nom,
+    vis_prenom
+FROM Visiteur;
+--
+-- 1.b -- Liste des rapports
+--
+SELECT rap_num,
+    vis_matricule,
+    rap_date_visite
+FROM RapportVisite rv
+    INNER JOIN Visiteur v ON rv.vis_matricule = v.vis_matricule
+WHERE vis_matricule = ?
+    AND rap_date_visite = ?;
+--
+-- 1.c -- Le rapport a été lu
+--
+UPDATE RapportVisite
+SET lu = true
+WHERE rap_num = ?;

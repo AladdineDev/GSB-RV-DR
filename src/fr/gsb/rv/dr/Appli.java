@@ -1,16 +1,11 @@
 package fr.gsb.rv.dr;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
-import fr.gsb.rv.dr.entites.Praticien;
 import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
-import fr.gsb.rv.dr.utilitaires.ComparateurCoefConfiance;
-import fr.gsb.rv.dr.utilitaires.ComparateurCoefNotoriete;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -57,6 +52,8 @@ public class Appli extends Application {
     @Override
     public void start(Stage stage) {
         primaryStage = stage;
+        stage.setMinHeight(360);
+        stage.setMinWidth(640);
 
         contentPane.setTop(creerMenuBar());
         contentPane.setCenter(vueAccueil);
@@ -112,12 +109,10 @@ public class Appli extends Application {
         });
 
         itemConsulter.setOnAction(ActionEvent -> {
-            System.out.println("[Rapports]" + visiteur.getPrenom() + " " + visiteur.getNom());
             contentPane.setCenter(vueRapports);
         });
 
         itemHesitant.setOnAction(ActionEvent -> {
-            System.out.println("[Praticiens]" + visiteur.getPrenom() + " " + visiteur.getNom());
             contentPane.setCenter(vuePraticiens);
         });
 
@@ -154,24 +149,23 @@ public class Appli extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println("hey");
-        List<Praticien> praticiens;
-        try {
-            praticiens = ModeleGsbRv.getPraticiensHesitants();
-            System.out.println("Avant tri");
-            praticiens.forEach(System.out::println);
-
-            Collections.sort(praticiens, new ComparateurCoefConfiance());
-            System.out.println("Trié CoefConfiance");
-            praticiens.forEach(System.out::println);
-
-            Collections.sort(praticiens, new ComparateurCoefNotoriete());
-            System.out.println("Trié CoefNotoriete");
-            praticiens.forEach(System.out::println);
-
-        } catch (ConnexionException e) {
-            e.printStackTrace();
-        }
         launch(args);
+        // List<Praticien> praticiens;
+        // try {
+        // praticiens = ModeleGsbRv.getPraticiensHesitants();
+        // System.out.println("Avant tri");
+        // praticiens.forEach(System.out::println);
+
+        // Collections.sort(praticiens, new ComparateurCoefConfiance());
+        // System.out.println("Trié CoefConfiance");
+        // praticiens.forEach(System.out::println);
+
+        // Collections.sort(praticiens, new ComparateurCoefNotoriete());
+        // System.out.println("Trié CoefNotoriete");
+        // praticiens.forEach(System.out::println);
+
+        // } catch (ConnexionException e) {
+        // e.printStackTrace();
+        // }
     }
 }

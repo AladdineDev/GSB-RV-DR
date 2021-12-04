@@ -1611,6 +1611,7 @@ CREATE TABLE `RapportVisite` (
   `rap_coefficient` int NOT NULL,
   `pra_num` int(11) DEFAULT NULL,
   `mot_code` varchar(10) DEFAULT NULL,
+  `lu` boolean DEFAULT false,
   PRIMARY KEY (`vis_matricule`, `rap_num`),
   KEY `FK_RAPPORT_VISITE_PRATICIEN` (`pra_num`),
   CONSTRAINT `FK_RAPPORT_VISITE_PRATICIEN` FOREIGN KEY (`pra_num`) REFERENCES `Praticien` (`pra_num`),
