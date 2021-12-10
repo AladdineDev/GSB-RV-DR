@@ -41,8 +41,7 @@ public class Visiteur {
 
     @Override
     public String toString() {
-        return "{" + " matricule='" + getMatricule() + "'" + ", nom='" + getNom() + "'" + ", prenom='" + getPrenom()
-                + "'" + "}";
+        return getNom().toUpperCase() + " " + getPrenom() + " (" + getMatricule() + ")";
     }
 
 }

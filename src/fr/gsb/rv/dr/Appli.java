@@ -142,7 +142,6 @@ public class Appli extends Application {
 
                 primaryStage.setTitle(visiteur.getPrenom() + " " + visiteur.getNom());
             } else {
-                System.out.println("Identifiants incorrect");
                 this.authentification(true);
             }
         }
@@ -150,22 +149,5 @@ public class Appli extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        // List<Praticien> praticiens;
-        // try {
-        // praticiens = ModeleGsbRv.getPraticiensHesitants();
-        // System.out.println("Avant tri");
-        // praticiens.forEach(System.out::println);
-
-        // Collections.sort(praticiens, new ComparateurCoefConfiance());
-        // System.out.println("Trié CoefConfiance");
-        // praticiens.forEach(System.out::println);
-
-        // Collections.sort(praticiens, new ComparateurCoefNotoriete());
-        // System.out.println("Trié CoefNotoriete");
-        // praticiens.forEach(System.out::println);
-
-        // } catch (ConnexionException e) {
-        // e.printStackTrace();
-        // }
     }
 }

@@ -6,24 +6,28 @@ public class RapportVisite {
 
     private int numero;
     private LocalDate dateVisite;
-    private LocalDate dateReaction;
+    private LocalDate dateRedaction;
     private String bilan;
     private String motif;
     private int coefConfiance;
     private boolean lu;
+    private Visiteur visiteur;
+    private Praticien praticien;
 
     public RapportVisite() {
     }
 
-    public RapportVisite(int numero, LocalDate dateVisite, LocalDate dateReaction, String bilan, String motif,
-            int coefConfiance, boolean lu) {
+    public RapportVisite(int numero, LocalDate dateVisite, LocalDate dateRedaction, String bilan, String motif,
+            int coefConfiance, boolean lu, Visiteur visiteur, Praticien praticien) {
         this.numero = numero;
         this.dateVisite = dateVisite;
-        this.dateReaction = dateReaction;
+        this.dateRedaction = dateRedaction;
         this.bilan = bilan;
         this.motif = motif;
         this.coefConfiance = coefConfiance;
         this.lu = lu;
+        this.visiteur = visiteur;
+        this.praticien = praticien;
     }
 
     public int getNumero() {
@@ -42,12 +46,12 @@ public class RapportVisite {
         this.dateVisite = dateVisite;
     }
 
-    public LocalDate getDateReaction() {
-        return this.dateReaction;
+    public LocalDate getDateRedaction() {
+        return this.dateRedaction;
     }
 
-    public void setDateReaction(LocalDate dateReaction) {
-        this.dateReaction = dateReaction;
+    public void setDateRedaction(LocalDate dateRedaction) {
+        this.dateRedaction = dateRedaction;
     }
 
     public String getBilan() {
@@ -86,16 +90,34 @@ public class RapportVisite {
         this.lu = lu;
     }
 
+    public Visiteur getVisiteur() {
+        return this.visiteur;
+    }
+
+    public void setVisiteur(Visiteur visiteur) {
+        this.visiteur = visiteur;
+    }
+
+    public Praticien getPraticien() {
+        return this.praticien;
+    }
+
+    public void setPraticien(Praticien praticien) {
+        this.praticien = praticien;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 " numero='" + getNumero() + "'" +
                 ", dateVisite='" + getDateVisite() + "'" +
-                ", dateReaction='" + getDateReaction() + "'" +
+                ", dateRedaction='" + getDateRedaction() + "'" +
                 ", bilan='" + getBilan() + "'" +
                 ", motif='" + getMotif() + "'" +
                 ", coefConfiance='" + getCoefConfiance() + "'" +
                 ", lu='" + isLu() + "'" +
+                ", visiteur='" + getVisiteur() + "'" +
+                ", praticien='" + getPraticien() + "'" +
                 "}";
     }
 

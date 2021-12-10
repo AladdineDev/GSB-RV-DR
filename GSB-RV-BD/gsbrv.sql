@@ -1607,16 +1607,17 @@ CREATE TABLE `RapportVisite` (
   `vis_matricule` varchar(20) NOT NULL DEFAULT '',
   `rap_num` int(11) NOT NULL DEFAULT '0',
   `rap_date_visite` date NOT NULL,
+  `rap_date_saisie` date NOT NULL,
   `rap_bilan` varchar(510) DEFAULT '',
   `rap_coefficient` int NOT NULL,
   `pra_num` int(11) DEFAULT NULL,
-  `mot_code` varchar(10) DEFAULT NULL,
-  `lu` boolean DEFAULT false,
+  `rap_motif` varchar(10) DEFAULT NULL,
+  `rap_lu` boolean DEFAULT false,
   PRIMARY KEY (`vis_matricule`, `rap_num`),
   KEY `FK_RAPPORT_VISITE_PRATICIEN` (`pra_num`),
   CONSTRAINT `FK_RAPPORT_VISITE_PRATICIEN` FOREIGN KEY (`pra_num`) REFERENCES `Praticien` (`pra_num`),
   CONSTRAINT `FK_RAPPORT_VISITE_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`),
-  CONSTRAINT `FK_RAPPORT_MOTIF` FOREIGN KEY (`mot_code`) REFERENCES `Motif` (`mot_code`)
+  CONSTRAINT `FK_RAPPORT_MOTIF` FOREIGN KEY (`rap_motif`) REFERENCES `Motif` (`mot_code`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;

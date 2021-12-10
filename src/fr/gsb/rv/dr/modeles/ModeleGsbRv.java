@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.gsb.rv.dr.entites.Praticien;
+import fr.gsb.rv.dr.entites.RapportVisite;
 import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.technique.ConnexionBD;
 import fr.gsb.rv.dr.technique.ConnexionException;
@@ -105,5 +106,116 @@ public class ModeleGsbRv {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<Visiteur> getVisiteurs() throws ConnexionException {
+
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = """
+                SELECT vis_matricule,
+                    vis_nom,
+                    vis_prenom
+                FROM Visiteur;
+                        """;
+
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery(requete);
+            List<Visiteur> visiteurs = new ArrayList<>();
+            while (res.next()) {
+                Visiteur visiteur = new Visiteur();
+                visiteur.setMatricule(res.getString("vis_matricule"));
+                visiteur.setNom(res.getString("vis_nom"));
+                visiteur.setPrenom(res.getString("vis_prenom"));
+                visiteurs.add(visiteur);
+            }
+            return visiteurs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<RapportVisite> getRapportsVisite(String matricule, int mois, int annee)
+            throws ConnexionException {
+
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = """
+                SELECT rv.vis_matricule,
+                    rv.pra_num
+                    rap_num,
+                    rap_date_visite,
+                    rap_date_saisie,
+                    rap_bilan,
+                    rap_coefficient,
+                    rap_motif,
+                    rap_lu
+                FROM RapportVisite rv
+                    INNER JOIN Visiteur v ON rv.vis_matricule = v.vis_matricule
+                WHERE rv.vis_matricule = ?
+                    AND YEAR(rv.rap_date_visite) = ?
+                    AND MONTH(rv.rap_date_visite) = ?
+                """;
+
+        try {
+            PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement(requete);
+            requetePreparee.setString(1, matricule);
+            requetePreparee.setInt(2, annee);
+            requetePreparee.setInt(3, mois);
+            ResultSet resultat = requetePreparee.executeQuery();
+            List<RapportVisite> rapportsVisite = new ArrayList<>();
+            while (resultat.next()) {
+                RapportVisite rapportVisite = new RapportVisite();
+                rapportVisite.setNumero(resultat.getInt("rap_num"));
+                rapportVisite.setDateVisite(resultat.getDate("rv.rap_date_visite").toLocalDate());
+                rapportVisite.setDateRedaction(resultat.getDate("rv.rap_date_saisie").toLocalDate());
+                rapportVisite.setBilan(resultat.getString("rap_bilan"));
+                rapportVisite.setMotif(resultat.getString("rap_motif"));
+                rapportVisite.setCoefConfiance(resultat.getInt("rap_coefficient"));
+                rapportVisite.setLu(resultat.getBoolean("rap_lu"));
+
+                for (Visiteur visiteur : getVisiteurs()) {
+                    if (visiteur.getMatricule() == resultat.getString("vis_matricule")) {
+                        rapportVisite.setVisiteur(visiteur);
+                    }
+                }
+
+                for (Praticien praticien : getPraticiensHesitants()) {
+                    if (praticien.getNumero() == resultat.getInt("pra_num")) {
+                        rapportVisite.setPraticien(praticien);
+                    }
+                }
+
+                rapportsVisite.add(rapportVisite);
+            }
+            requetePreparee.close();
+            return rapportsVisite;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void setRapportsVisiteLu(String matricule, int numRapport) throws ConnexionException {
+
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = """
+                UPDATE RapportVisite
+                SET rap_lu = true
+                WHERE vis_matricule = ?
+                AND rap_num = ?;
+                """;
+        try {
+            PreparedStatement requetePreparee = connexion.prepareStatement(requete);
+            requetePreparee.setString(1, matricule);
+            requetePreparee.setInt(2, numRapport);
+            requetePreparee.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

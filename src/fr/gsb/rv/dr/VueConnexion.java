@@ -27,9 +27,10 @@ public class VueConnexion extends Dialog<Pair<String, String>> {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         Text scenetitle = new Text("Saisir vos données de connexion.");
+        scenetitle.setStyle("-fx-font-weight: bold");
         grid.add(scenetitle, 0, 0, 2, 1);
 
-        Label matriculeLabel = new Label("Mactricule : ");
+        Label matriculeLabel = new Label("Matricule : ");
         grid.add(matriculeLabel, 0, 1);
 
         TextField matriculeField = new TextField();
