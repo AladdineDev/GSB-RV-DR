@@ -161,7 +161,6 @@ public class PanneauRapports extends StackPane {
                         VueRapport vueRapport = new VueRapport(
                                 tableRapportsVisite.getSelectionModel().getSelectedItem());
                         vueRapport.show();
-                        this.rafraichir();
                     } catch (ConnexionException e) {
                         e.printStackTrace();
                     }

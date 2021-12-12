@@ -21,7 +21,7 @@ public class ModeleGsbRv {
         Connection connexion = ConnexionBD.getConnexion();
 
         String requete = """
-                    SELECT t.vis_matricule,
+                SELECT t.vis_matricule,
                     t.tra_role,
                     t.jjmmaa,
                     v.vis_prenom,
@@ -40,69 +40,22 @@ public class ModeleGsbRv {
                 WHERE t.tra_role = 'Délégué'
                     AND v.vis_matricule = ?
                     AND v.vis_mdp = ?
-                            """;
+                    """;
 
         try {
-            PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement(requete);
-            requetePreparee.setString(1, matricule);
-            requetePreparee.setString(2, mdp);
-            ResultSet resultat = requetePreparee.executeQuery();
-            if (resultat.next()) {
-                Visiteur visiteur = new Visiteur();
-                visiteur.setMatricule(resultat.getString("vis_matricule"));
-                visiteur.setNom(resultat.getString("vis_nom"));
-                visiteur.setPrenom(resultat.getString("vis_prenom"));
-
-                requetePreparee.close();
+            PreparedStatement pstmt = connexion.prepareStatement(requete);
+            pstmt.setString(1, matricule);
+            pstmt.setString(2, mdp);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                Visiteur visiteur = new Visiteur(
+                        res.getString("vis_matricule"),
+                        res.getString("vis_nom"),
+                        res.getString("vis_prenom"));
+                pstmt.close();
                 return visiteur;
-            } else {
-                return null;
             }
         } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static List<Praticien> getPraticiensHesitants() throws ConnexionException {
-
-        Connection connexion = ConnexionBD.getConnexion();
-
-        String requete = """
-                    SELECT p.pra_num,
-                    p.pra_nom,
-                    p.pra_ville,
-                    p.pra_coefnotoriete,
-                    rv.rap_date_visite,
-                    rv.rap_coefficient
-                FROM Praticien p
-                    INNER JOIN (
-                        SELECT MAX(rap_date_visite) AS rap_date_visite,
-                            MAX(rap_coefficient) AS rap_coefficient
-                        FROM RapportVisite
-                        GROUP BY rap_num
-                    ) AS r
-                    INNER JOIN RapportVisite as rv ON p.pra_num = rv.pra_num
-                WHERE rv.rap_date_visite = r.rap_date_visite
-                    AND rv.rap_coefficient = r.rap_coefficient
-                    AND rv.rap_coefficient < 5;
-                                        """;
-
-        try {
-            Statement stmt = connexion.createStatement();
-            ResultSet res = stmt.executeQuery(requete);
-            List<Praticien> praticiens = new ArrayList<>();
-            while (res.next()) {
-                Praticien praticien = new Praticien(
-                        res.getInt("p.pra_num"),
-                        res.getString("p.pra_nom"),
-                        res.getString("p.pra_ville"),
-                        res.getDouble("pra_coefnotoriete"),
-                        res.getDate("rv.rap_date_visite").toLocalDate(),
-                        res.getInt("rv.rap_coefficient"));
-                praticiens.add(praticien);
-            }
-            return praticiens;
-        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -117,20 +70,124 @@ public class ModeleGsbRv {
                     vis_nom,
                     vis_prenom
                 FROM Visiteur;
-                        """;
+                """;
 
         try {
             Statement stmt = connexion.createStatement();
             ResultSet res = stmt.executeQuery(requete);
             List<Visiteur> visiteurs = new ArrayList<>();
             while (res.next()) {
-                Visiteur visiteur = new Visiteur();
-                visiteur.setMatricule(res.getString("vis_matricule"));
-                visiteur.setNom(res.getString("vis_nom"));
-                visiteur.setPrenom(res.getString("vis_prenom"));
+                Visiteur visiteur = new Visiteur(
+                        res.getString("vis_matricule"),
+                        res.getString("vis_nom"),
+                        res.getString("vis_prenom"));
                 visiteurs.add(visiteur);
             }
+            stmt.close();
             return visiteurs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Praticien> getPraticiens() throws ConnexionException {
+
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = """
+                SELECT p.pra_num,
+                    p.pra_nom,
+                    p.pra_prenom,
+                    p.pra_ville,
+                    p.pra_coefnotoriete,
+                    rv.rap_date_visite,
+                    rv.rap_coefficient,
+                    p.pra_adresse,
+                    p.pra_cp
+                FROM Praticien p
+                    INNER JOIN (
+                        SELECT MAX(rap_date_visite) AS rap_date_visite,
+                            MAX(rap_coefficient) AS rap_coefficient
+                        FROM RapportVisite
+                        GROUP BY rap_num
+                    ) AS r
+                    INNER JOIN RapportVisite as rv ON p.pra_num = rv.pra_num
+                WHERE rv.rap_date_visite = r.rap_date_visite
+                    AND rv.rap_coefficient = r.rap_coefficient;
+                    """;
+
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery(requete);
+            List<Praticien> praticiens = new ArrayList<>();
+            while (res.next()) {
+                Praticien praticien = new Praticien(
+                        res.getInt("p.pra_num"),
+                        res.getString("p.pra_nom"),
+                        res.getString("p.pra_prenom"),
+                        res.getString("p.pra_ville"),
+                        res.getDouble("pra_coefnotoriete"),
+                        res.getDate("rv.rap_date_visite").toLocalDate(),
+                        res.getInt("rv.rap_coefficient"),
+                        res.getString("p.pra_adresse"),
+                        res.getString("p.pra_cp"));
+                praticiens.add(praticien);
+            }
+            stmt.close();
+            return praticiens;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Praticien> getPraticiensHesitants() throws ConnexionException {
+
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = """
+                SELECT p.pra_num,
+                    p.pra_nom,
+                    p.pra_prenom,
+                    p.pra_ville,
+                    p.pra_coefnotoriete,
+                    rv.rap_date_visite,
+                    rv.rap_coefficient,
+                    p.pra_adresse,
+                    p.pra_cp
+                FROM Praticien p
+                    INNER JOIN (
+                        SELECT MAX(rap_date_visite) AS rap_date_visite,
+                            MAX(rap_coefficient) AS rap_coefficient
+                        FROM RapportVisite
+                        GROUP BY rap_num
+                    ) AS r
+                    INNER JOIN RapportVisite as rv ON p.pra_num = rv.pra_num
+                WHERE rv.rap_date_visite = r.rap_date_visite
+                    AND rv.rap_coefficient = r.rap_coefficient
+                    AND rv.rap_coefficient < 5;
+                    """;
+
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery(requete);
+            List<Praticien> praticiens = new ArrayList<>();
+            while (res.next()) {
+                Praticien praticien = new Praticien(
+                        res.getInt("p.pra_num"),
+                        res.getString("p.pra_nom"),
+                        res.getString("p.pra_prenom"),
+                        res.getString("p.pra_ville"),
+                        res.getDouble("pra_coefnotoriete"),
+                        res.getDate("rv.rap_date_visite").toLocalDate(),
+                        res.getInt("rv.rap_coefficient"),
+                        res.getString("p.pra_adresse"),
+                        res.getString("p.pra_cp"));
+                praticiens.add(praticien);
+            }
+            stmt.close();
+            return praticiens;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -144,8 +201,7 @@ public class ModeleGsbRv {
 
         String requete = """
                 SELECT rv.vis_matricule,
-                    rv.pra_num
-                    rap_num,
+                    rv.pra_num rap_num,
                     rap_date_visite,
                     rap_date_saisie,
                     rap_bilan,
@@ -157,40 +213,40 @@ public class ModeleGsbRv {
                 WHERE rv.vis_matricule = ?
                     AND YEAR(rv.rap_date_visite) = ?
                     AND MONTH(rv.rap_date_visite) = ?
-                """;
+                    """;
 
         try {
-            PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement(requete);
-            requetePreparee.setString(1, matricule);
-            requetePreparee.setInt(2, annee);
-            requetePreparee.setInt(3, mois);
-            ResultSet resultat = requetePreparee.executeQuery();
+            PreparedStatement pstmt = connexion.prepareStatement(requete);
+            pstmt.setString(1, matricule);
+            pstmt.setInt(2, annee);
+            pstmt.setInt(3, mois);
+            ResultSet res = pstmt.executeQuery();
             List<RapportVisite> rapportsVisite = new ArrayList<>();
-            while (resultat.next()) {
+            while (res.next()) {
                 RapportVisite rapportVisite = new RapportVisite();
-                rapportVisite.setNumero(resultat.getInt("rap_num"));
-                rapportVisite.setDateVisite(resultat.getDate("rv.rap_date_visite").toLocalDate());
-                rapportVisite.setDateRedaction(resultat.getDate("rv.rap_date_saisie").toLocalDate());
-                rapportVisite.setBilan(resultat.getString("rap_bilan"));
-                rapportVisite.setMotif(resultat.getString("rap_motif"));
-                rapportVisite.setCoefConfiance(resultat.getInt("rap_coefficient"));
-                rapportVisite.setLu(resultat.getBoolean("rap_lu"));
+                rapportVisite.setNumero(res.getInt("rap_num"));
+                rapportVisite.setDateVisite(res.getDate("rv.rap_date_visite").toLocalDate());
+                rapportVisite.setDateRedaction(res.getDate("rv.rap_date_saisie").toLocalDate());
+                rapportVisite.setBilan(res.getString("rap_bilan"));
+                rapportVisite.setMotif(res.getString("rap_motif"));
+                rapportVisite.setCoefConfiance(res.getInt("rap_coefficient"));
+                rapportVisite.setLu(res.getBoolean("rap_lu"));
 
                 for (Visiteur visiteur : getVisiteurs()) {
-                    if (visiteur.getMatricule() == resultat.getString("vis_matricule")) {
+                    if (visiteur.getMatricule() == res.getString("vis_matricule")) {
                         rapportVisite.setVisiteur(visiteur);
                     }
                 }
 
-                for (Praticien praticien : getPraticiensHesitants()) {
-                    if (praticien.getNumero() == resultat.getInt("pra_num")) {
+                for (Praticien praticien : getPraticiens()) {
+                    if (praticien.getNumero() == res.getInt("pra_num")) {
                         rapportVisite.setPraticien(praticien);
                     }
                 }
 
                 rapportsVisite.add(rapportVisite);
             }
-            requetePreparee.close();
+            pstmt.close();
             return rapportsVisite;
 
         } catch (Exception e) {
@@ -207,13 +263,14 @@ public class ModeleGsbRv {
                 UPDATE RapportVisite
                 SET rap_lu = true
                 WHERE vis_matricule = ?
-                AND rap_num = ?;
-                """;
+                    AND rap_num = ?;
+                    """;
         try {
-            PreparedStatement requetePreparee = connexion.prepareStatement(requete);
-            requetePreparee.setString(1, matricule);
-            requetePreparee.setInt(2, numRapport);
-            requetePreparee.executeUpdate();
+            PreparedStatement pstmt = connexion.prepareStatement(requete);
+            pstmt.setString(1, matricule);
+            pstmt.setInt(2, numRapport);
+            pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

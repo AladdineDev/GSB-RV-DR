@@ -14,22 +14,6 @@ public class RapportVisite {
     private Visiteur visiteur;
     private Praticien praticien;
 
-    public RapportVisite() {
-    }
-
-    public RapportVisite(int numero, LocalDate dateVisite, LocalDate dateRedaction, String bilan, String motif,
-            int coefConfiance, boolean lu, Visiteur visiteur, Praticien praticien) {
-        this.numero = numero;
-        this.dateVisite = dateVisite;
-        this.dateRedaction = dateRedaction;
-        this.bilan = bilan;
-        this.motif = motif;
-        this.coefConfiance = coefConfiance;
-        this.lu = lu;
-        this.visiteur = visiteur;
-        this.praticien = praticien;
-    }
-
     public int getNumero() {
         return this.numero;
     }

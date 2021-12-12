@@ -14,19 +14,6 @@ public class Praticien {
     private String adresse;
     private String codePostal;
 
-    public Praticien() {
-    }
-
-    public Praticien(int numero, String nom, String ville, double coefNotoriete, LocalDate dateDerniereVisite,
-            int dernierCoefConfiance) {
-        this.numero = numero;
-        this.nom = nom;
-        this.ville = ville;
-        this.coefNotoriete = coefNotoriete;
-        this.dateDerniereVisite = dateDerniereVisite;
-        this.dernierCoefConfiance = dernierCoefConfiance;
-    }
-
     public Praticien(int numero, String nom, String prenom, String ville, double coefNotoriete,
             LocalDate dateDerniereVisite, int dernierCoefConfiance, String adresse, String codePostal) {
         this.numero = numero;
