@@ -1,4 +1,4 @@
-package fr.gsb.rv.dr;
+package fr.gsb.rv.dr.vues;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -52,6 +52,8 @@ public class PanneauRapports extends StackPane {
         VBox vBox = new VBox();
         GridPane grid = new GridPane();
         Button btnValider = new Button("Valider");
+
+        vBox.setStyle("-fx-background-color: linear-gradient(#95b3d7, #5687c1)");
 
         grid.setAlignment(Pos.TOP_LEFT);
         grid.setHgap(10);
@@ -139,10 +141,12 @@ public class PanneauRapports extends StackPane {
                     super.updateItem(item, empty);
                     if (item != null) {
                         if (item.isLu()) {
-                            setStyle("-fx-background-color: gold");
+                            setStyle("-fx-background-color: orange");
                         } else {
-                            setStyle("-fx-background-color: cyan");
+                            setStyle("-fx-background-color: #80a2ce");
                         }
+                    } else {
+                        setStyle("-fx-background-color: #ffffff");
                     }
                 }
             };
@@ -153,13 +157,16 @@ public class PanneauRapports extends StackPane {
                 int indiceRapport = tableRapportsVisite.getSelectionModel().getSelectedIndex();
                 if (indiceRapport >= 0) {
                     try {
-                        ModeleGsbRv.setRapportsVisiteLu(cbVisiteurs.getValue().getMatricule(), indiceRapport);
                         String matriculeVisiteur = cbVisiteurs.getValue().getMatricule();
                         int mois = cbMois.getValue().ordinal() + 1;
                         int annee = cbAnnee.getValue();
+                        RapportVisite rapport = tableRapportsVisite.getSelectionModel().getSelectedItem();
+
+                        ModeleGsbRv.setRapportsVisiteLu(matriculeVisiteur, rapport.getNumero());
+                        this.rafraichir();
                         listRapportsVisite = ModeleGsbRv.getRapportsVisite(matriculeVisiteur, mois, annee);
-                        VueRapport vueRapport = new VueRapport(
-                                tableRapportsVisite.getSelectionModel().getSelectedItem());
+
+                        VueRapport vueRapport = new VueRapport(rapport);
                         vueRapport.show();
                     } catch (ConnexionException e) {
                         e.printStackTrace();
@@ -182,6 +189,7 @@ public class PanneauRapports extends StackPane {
 
         this.getChildren().add(vBox);
         tableRapportsVisite.setItems(observableListRapportsVisite);
+        tableRapportsVisite.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         vBox.getChildren().addAll(grid, tableRapportsVisite);
     }
 

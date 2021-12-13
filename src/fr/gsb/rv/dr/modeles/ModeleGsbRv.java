@@ -201,7 +201,8 @@ public class ModeleGsbRv {
 
         String requete = """
                 SELECT rv.vis_matricule,
-                    rv.pra_num rap_num,
+                    rv.pra_num,
+                    rap_num,
                     rap_date_visite,
                     rap_date_saisie,
                     rap_bilan,

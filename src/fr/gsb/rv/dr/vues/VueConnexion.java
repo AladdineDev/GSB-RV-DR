@@ -1,4 +1,4 @@
-package fr.gsb.rv.dr;
+package fr.gsb.rv.dr.vues;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +18,7 @@ public class VueConnexion extends Dialog<Pair<String, String>> {
 
     boolean identifiantsIncorrects = false;
 
-    VueConnexion(boolean identifiantIncorrect) {
+    public VueConnexion(boolean identifiantIncorrect) {
         super();
         this.setTitle("Authentification");
         GridPane grid = new GridPane();

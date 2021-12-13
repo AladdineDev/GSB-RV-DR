@@ -6,6 +6,10 @@ import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionException;
 import fr.gsb.rv.dr.technique.Session;
+import fr.gsb.rv.dr.vues.PanneauAccueil;
+import fr.gsb.rv.dr.vues.PanneauPraticiens;
+import fr.gsb.rv.dr.vues.PanneauRapports;
+import fr.gsb.rv.dr.vues.VueConnexion;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -22,6 +26,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Pair;
 
 public class Appli extends Application {
@@ -65,6 +70,19 @@ public class Appli extends Application {
         primaryStage.setTitle("GSB-RV-DR");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        Window window = primaryStage.getScene().getWindow();
+        window.setOnCloseRequest(event -> {
+            Alert alertQuitter = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous quitter l'application ?",
+                    ButtonType.YES, ButtonType.NO);
+            alertQuitter.setTitle("Quitter");
+            alertQuitter.setHeaderText("Demande de confirmation");
+
+            Optional<ButtonType> reponse = alertQuitter.showAndWait();
+            if (reponse.get().getButtonData() == ButtonData.YES) {
+                Platform.exit();
+            }
+        });
     }
 
     private MenuBar creerMenuBar() {
@@ -108,11 +126,11 @@ public class Appli extends Application {
             }
         });
 
-        itemConsulter.setOnAction(ActionEvent -> {
+        itemConsulter.setOnAction(actionEvent -> {
             contentPane.setCenter(vueRapports);
         });
 
-        itemHesitant.setOnAction(ActionEvent -> {
+        itemHesitant.setOnAction(actionEvent -> {
             contentPane.setCenter(vuePraticiens);
         });
 

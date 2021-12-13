@@ -1,4 +1,4 @@
-package fr.gsb.rv.dr;
+package fr.gsb.rv.dr.vues;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +27,7 @@ public class PanneauPraticiens extends StackPane {
 
     public static final int CRITERE_COEF_CONFIANCE = 1;
     public static final int CRITERE_COEF_NOTORIETE = 2;
-    public static final int CRITERE_COEF_VISITE = 3;
+    public static final int CRITERE_DATE_VISITE = 3;
 
     private int critereTri = CRITERE_COEF_CONFIANCE;
 
@@ -45,6 +45,8 @@ public class PanneauPraticiens extends StackPane {
         VBox vBox = new VBox();
         GridPane grid = new GridPane();
 
+        vBox.setStyle("-fx-background-color: linear-gradient(#95b3d7, #5687c1)");
+
         grid.setAlignment(Pos.TOP_LEFT);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -60,16 +62,16 @@ public class PanneauPraticiens extends StackPane {
         grid.add(rbCoefNotoriete, 2, 0);
         grid.add(rbDateVisite, 3, 0);
 
-        rbCoefConfiance.setOnAction(ActionEvent -> {
+        rbCoefConfiance.setOnAction(actionEvent -> {
             this.setCritereTri(CRITERE_COEF_CONFIANCE);
             this.rafraichir();
         });
-        rbCoefNotoriete.setOnAction(ActionEvent -> {
+        rbCoefNotoriete.setOnAction(actionEvent -> {
             this.setCritereTri(CRITERE_COEF_NOTORIETE);
             this.rafraichir();
         });
-        rbDateVisite.setOnAction(ActionEvent -> {
-            this.setCritereTri(CRITERE_COEF_VISITE);
+        rbDateVisite.setOnAction(actionEvent -> {
+            this.setCritereTri(CRITERE_DATE_VISITE);
             this.rafraichir();
         });
 
@@ -97,6 +99,8 @@ public class PanneauPraticiens extends StackPane {
             tablePraticiens.getColumns().add(columnVille);
 
             tablePraticiens.setItems(observableListPraticiens);
+            tablePraticiens.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
             this.rafraichir();
 
             vBox.getChildren().add(tablePraticiens);
@@ -122,7 +126,7 @@ public class PanneauPraticiens extends StackPane {
                     tablePraticiens.setItems(observableListPraticiens);
                     break;
 
-                case CRITERE_COEF_VISITE:
+                case CRITERE_DATE_VISITE:
                     observableListPraticiens.sort(new ComparateurDateVisite());
                     Collections.reverse(observableListPraticiens);
                     tablePraticiens.setItems(observableListPraticiens);

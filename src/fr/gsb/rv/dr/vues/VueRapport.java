@@ -1,4 +1,4 @@
-package fr.gsb.rv.dr;
+package fr.gsb.rv.dr.vues;
 
 import fr.gsb.rv.dr.entites.RapportVisite;
 import javafx.geometry.Insets;
