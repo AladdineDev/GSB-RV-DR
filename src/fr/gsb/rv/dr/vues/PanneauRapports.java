@@ -25,7 +25,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,6 +54,11 @@ public class PanneauRapports extends StackPane {
         super();
         VBox vBox = new VBox();
         GridPane grid = new GridPane();
+        BorderPane borderPane = new BorderPane();
+
+        Image logo = new Image("file:img/logo.png", 178, 85, true, true);
+        this.getChildren().add(borderPane);
+
         Button btnValider = new Button("Valider");
 
         vBox.setStyle("-fx-background-color: linear-gradient(#95b3d7, #5687c1)");
@@ -64,6 +72,10 @@ public class PanneauRapports extends StackPane {
         grid.add(cbMois, 1, 0);
         grid.add(cbAnnee, 2, 0);
         grid.add(btnValider, 0, 1);
+
+        borderPane.setLeft(grid);
+        borderPane.setRight(new ImageView(logo));
+        borderPane.setPadding(new Insets(5, 5, 5, 5));
 
         try {
             List<Visiteur> listVisiteurs = ModeleGsbRv.getVisiteurs();
@@ -190,7 +202,7 @@ public class PanneauRapports extends StackPane {
         this.getChildren().add(vBox);
         tableRapportsVisite.setItems(observableListRapportsVisite);
         tableRapportsVisite.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        vBox.getChildren().addAll(grid, tableRapportsVisite);
+        vBox.getChildren().addAll(borderPane, tableRapportsVisite);
     }
 
     public void rafraichir() {

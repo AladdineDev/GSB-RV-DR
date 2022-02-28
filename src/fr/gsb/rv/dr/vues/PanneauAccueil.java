@@ -10,9 +10,9 @@ public class PanneauAccueil extends StackPane {
     public PanneauAccueil() {
         super();
         BorderPane centerPane = new BorderPane();
-        Image logo = new Image("file:img/logo.png", 400, 252, true, true);
+        Image logo = new Image("file:img/logo.png", 400, 195, true, true);
         centerPane.setCenter(new ImageView(logo));
-        centerPane.setStyle("-fx-background-color: radial-gradient(center 50% 50% , radius 100% , #6690c5, #000000)");
+        centerPane.setStyle("-fx-background-color: radial-gradient(center 50% 50% , radius 100% , #ffffff, #0957bd)");
         this.getChildren().add(centerPane);
     }
 }

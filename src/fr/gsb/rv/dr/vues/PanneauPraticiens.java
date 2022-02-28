@@ -13,15 +13,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.text.Font;
 
 public class PanneauPraticiens extends StackPane {
 
@@ -43,19 +47,31 @@ public class PanneauPraticiens extends StackPane {
     public PanneauPraticiens() {
         super();
         VBox vBox = new VBox();
+        VBox vBoxInner = new VBox();
         GridPane grid = new GridPane();
+        BorderPane borderPane = new BorderPane();
+
+        Image logo = new Image("file:img/logo.png", 178, 85, true, true);
+        this.getChildren().add(borderPane);
 
         vBox.setStyle("-fx-background-color: linear-gradient(#95b3d7, #5687c1)");
 
         grid.setAlignment(Pos.TOP_LEFT);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setPadding(new Insets(25, 25, 20, 10));
 
-        Text prompt = new Text("Sélectionner un critère de tri : ");
+        Label prompt = new Label("Sélectionner un critère de tri : ");
+        prompt.setPadding(new Insets(10, 0, 0, 15));
+        prompt.setFont(new Font(14));
         prompt.setStyle("-fx-font-weight: bold");
 
-        vBox.getChildren().addAll(prompt, grid);
+        vBoxInner.getChildren().addAll(prompt, grid);
+        borderPane.setLeft(vBoxInner);
+        borderPane.setRight(new ImageView(logo));
+        borderPane.setPadding(new Insets(5, 5, 5, 5));
+
+        vBox.getChildren().addAll(borderPane);
         this.getChildren().add(vBox);
 
         grid.add(rbCoefConfiance, 1, 0);

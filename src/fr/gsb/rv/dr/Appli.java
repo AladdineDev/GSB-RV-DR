@@ -57,8 +57,8 @@ public class Appli extends Application {
     @Override
     public void start(Stage stage) {
         primaryStage = stage;
-        stage.setMinHeight(360);
-        stage.setMinWidth(640);
+        stage.setMinHeight(420);
+        stage.setMinWidth(720);
 
         contentPane.setTop(creerMenuBar());
         contentPane.setCenter(vueAccueil);
