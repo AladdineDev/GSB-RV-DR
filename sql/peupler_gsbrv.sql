@@ -66,7 +66,7 @@ VALUES (
     );
 INSERT INTO RapportVisite
 VALUES (
-        "l14",
+        "a17",
         5,
         "2021-10-01",
         "2021-10-05",
@@ -126,10 +126,10 @@ VALUES (
     );
 INSERT INTO RapportVisite
 VALUES (
-        "g53",
+        "a17",
         10,
-        "2021-11-03",
-        "2021-11-05",
+        "2021-10-17",
+        "2021-10-30",
         "L'entrevue à durée 40 minutes, et une autre visite a été planifié avec le praticien.",
         5,
         36,

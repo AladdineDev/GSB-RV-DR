@@ -20,6 +20,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -44,7 +45,7 @@ public class Appli extends Application {
 
     private MenuBar barreMenus = new MenuBar();
 
-    private Menu menuFichier = new Menu("Fichier");
+    private Menu menuConnexion = new Menu("Connexion");
     private Menu menuRapports = new Menu("Rapports");
     private Menu menuPraticiens = new Menu("Praticiens");
 
@@ -68,6 +69,7 @@ public class Appli extends Application {
         Scene scene = new Scene(root, 720, 480);
 
         primaryStage.setTitle("GSB-RV-DR");
+        primaryStage.getIcons().add(new Image("file:img/logo_old.png"));
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -86,9 +88,9 @@ public class Appli extends Application {
     }
 
     private MenuBar creerMenuBar() {
-        menuFichier.getItems().addAll(itemSeConnecter, itemSeDeconnecter);
-        menuFichier.getItems().add(new SeparatorMenuItem());
-        menuFichier.getItems().addAll(itemQuitter);
+        menuConnexion.getItems().addAll(itemSeConnecter, itemSeDeconnecter);
+        menuConnexion.getItems().add(new SeparatorMenuItem());
+        menuConnexion.getItems().addAll(itemQuitter);
         menuRapports.getItems().add(itemConsulter);
         menuPraticiens.getItems().add(itemHesitant);
 
@@ -134,7 +136,7 @@ public class Appli extends Application {
             contentPane.setCenter(vuePraticiens);
         });
 
-        barreMenus.getMenus().addAll(menuFichier, menuRapports, menuPraticiens);
+        barreMenus.getMenus().addAll(menuConnexion, menuRapports, menuPraticiens);
 
         return barreMenus;
     }

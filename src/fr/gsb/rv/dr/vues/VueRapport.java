@@ -1,5 +1,7 @@
 package fr.gsb.rv.dr.vues;
 
+import java.time.format.DateTimeFormatter;
+
 import fr.gsb.rv.dr.entites.RapportVisite;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +18,8 @@ public class VueRapport extends Dialog<RapportVisite> {
         super();
         Window window = this.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
+
+        DateTimeFormatter formateur = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
         this.setTitle("Rapport");
         GridPane grid = new GridPane();
@@ -34,12 +38,12 @@ public class VueRapport extends Dialog<RapportVisite> {
 
         Label dateVisiteLabel = new Label("Date de visite : ");
         grid.add(dateVisiteLabel, 0, 2);
-        Text dateVisiteField = new Text(String.valueOf(rapportVisite.getDateVisite()));
+        Text dateVisiteField = new Text(String.valueOf(rapportVisite.getDateVisite().format(formateur)));
         grid.add(dateVisiteField, 1, 2);
 
         Label dateRedactionLabel = new Label("Date de rédaction : ");
         grid.add(dateRedactionLabel, 0, 3);
-        Text dateRedactionField = new Text(String.valueOf(rapportVisite.getDateRedaction()));
+        Text dateRedactionField = new Text(String.valueOf(rapportVisite.getDateRedaction().format(formateur)));
         grid.add(dateRedactionField, 1, 3);
 
         Label bilanLabel = new Label("Bilan : ");
