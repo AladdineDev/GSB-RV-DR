@@ -1,19 +1,5 @@
 {
-    "java.project.sourcePaths": [
-        "src"
-    ],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "/usr/share/openjfx/lib/javafx.base.jar",
-        "/usr/share/openjfx/lib/javafx.controls.jar",
-        "/usr/share/openjfx/lib/javafx.fxml.jar",
-        "/usr/share/openjfx/lib/javafx.graphics.jar",
-        "/usr/share/openjfx/lib/javafx.media.jar",
-        "/usr/share/openjfx/lib/javafx.swing.jar",
-        "/usr/share/openjfx/lib/javafx.web.jar",
-        "/opt/mariadb-java-client/mariadb-java-client-2.7.4.jar"
-    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
     "sqltools.connections": [
         {
             "mysqlOptions": {
@@ -23,7 +9,7 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MariaDB",
-            "name": "GSB-RV",
+            "name": "GSB-RV-DR",
             "database": "gsbrv",
             "username": "developpeur",
             "password": "azerty"
