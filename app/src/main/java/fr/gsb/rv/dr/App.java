@@ -68,7 +68,7 @@ public class App extends Application {
 
         Scene scene = new Scene(root, 720, 480);
 
-        primaryStage.setTitle("GSB-RV-DR");
+        primaryStage.setTitle("GSB-RV-DR - Bienvenue");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/logo_old.png")));
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -112,7 +112,7 @@ public class App extends Application {
             menuRapports.setDisable(true);
             menuPraticiens.setDisable(true);
 
-            primaryStage.setTitle("GSB-RV-DR");
+            primaryStage.setTitle("GSB-RV-DR - À bientôt");
             contentPane.setCenter(vueAccueil);
         });
 
