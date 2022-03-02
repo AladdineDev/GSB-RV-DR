@@ -1,4 +1,4 @@
-<img src="img/logo.png" align="right" width="200px"/>
+<img src="app/src/main/resources/logo.png" align="right" width="200px"/>
 
 GSB RV DR [![Version](https://img.shields.io/badge/version-1.0.0-2fba00.svg?style=flat-square)](#readme) [![Licence](https://img.shields.io/badge/licence-MIT-2fba00.svg?style=flat-square)](https://github.com/Aaldn/GSB-RV-DR/blob/master/LICENSE.md)
 ========================
