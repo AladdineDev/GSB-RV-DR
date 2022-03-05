@@ -1607,7 +1607,7 @@ CREATE TABLE `RapportVisite` (
   `vis_matricule` varchar(20) NOT NULL DEFAULT '',
   `rap_num` int(11) NOT NULL DEFAULT '0',
   `rap_date_visite` date NOT NULL,
-  `rap_date_saisie` date NOT NULL,
+  `rap_date_redaction` date NOT NULL,
   `rap_bilan` varchar(510) DEFAULT '',
   `rap_coefficient` int NOT NULL,
   `pra_num` int(11) DEFAULT NULL,

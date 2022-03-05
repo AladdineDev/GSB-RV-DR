@@ -204,7 +204,7 @@ public class ModeleGsbRv {
                     rv.pra_num,
                     rap_num,
                     rap_date_visite,
-                    rap_date_saisie,
+                    rap_date_redaction,
                     rap_bilan,
                     rap_coefficient,
                     rap_motif,
@@ -227,7 +227,7 @@ public class ModeleGsbRv {
                 RapportVisite rapportVisite = new RapportVisite();
                 rapportVisite.setNumero(res.getInt("rap_num"));
                 rapportVisite.setDateVisite(res.getDate("rv.rap_date_visite").toLocalDate());
-                rapportVisite.setDateRedaction(res.getDate("rv.rap_date_saisie").toLocalDate());
+                rapportVisite.setDateRedaction(res.getDate("rv.rap_date_redaction").toLocalDate());
                 rapportVisite.setBilan(res.getString("rap_bilan"));
                 rapportVisite.setMotif(res.getString("rap_motif"));
                 rapportVisite.setCoefConfiance(res.getInt("rap_coefficient"));
