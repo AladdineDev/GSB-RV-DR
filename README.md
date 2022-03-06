@@ -5,7 +5,7 @@ GSB RV DR [![Version](https://img.shields.io/badge/version-1.0.0-2fba00.svg?styl
 
 GSB RV DR – par [@Aaldn](https://github.com/Aaldn)
 
-[![java 17](https://img.shields.io/badge/Java-17-0074bd.svg?style=flat-square&logo=java)](https://openjdk.java.net/) [![JavaFX 17](https://img.shields.io/badge/JavaFX-17-53829e.svg?style=flat-square&logo=java)](https://openjfx.io/) [![gradle 7](https://img.shields.io/badge/Gradle-7.6-02303a.svg?style=flat-square&logo=gradle)](https://gradle.org/) [![mariadb 10](https://img.shields.io/badge/MariaDB-10.5-c0765a.svg?style=flat-square&logo=mariadb)](https://mariadb.org/) 
+[![Java 17](https://img.shields.io/badge/Java-17-0074bd.svg?style=flat-square&logo=java)](https://openjdk.java.net/) [![JavaFX 17](https://img.shields.io/badge/JavaFX-17-53829e.svg?style=flat-square&logo=java)](https://openjfx.io/) [![Gradle 7](https://img.shields.io/badge/Gradle-7.6-02303a.svg?style=flat-square&logo=gradle)](https://gradle.org/) [![Mariadb 10](https://img.shields.io/badge/MariaDB-10.5-c0765a.svg?style=flat-square&logo=mariadb)](https://mariadb.org/) 
 
 Application d'enregistrement et de suivi des rapports de visite.
 
@@ -24,7 +24,7 @@ Application d'enregistrement et de suivi des rapports de visite.
 
 ### Prérequis
 
-  * [Java](http://jdk.java.net/17/) + définition de la variable d'environnement [JAVA_HOME](https://www.baeldung.com/java-home-on-windows-7-8-10-mac-os-x-linux#1-single-user)
+  * [Java](http://jdk.java.net/17/) (+ définition de la variable d'environnement [JAVA_HOME](https://www.baeldung.com/java-home-on-windows-7-8-10-mac-os-x-linux#1-single-user))
 
   * [MariaDB](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.5.12&os=Linux&cpu=x86_64&i=systemd)
 
