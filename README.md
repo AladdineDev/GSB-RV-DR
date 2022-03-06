@@ -25,7 +25,6 @@ Application d'enregistrement et de suivi des rapports de visite.
 ### Prérequis
 
   * [Java](http://jdk.java.net/17/) (+ définition de la variable d'environnement [JAVA_HOME](https://www.baeldung.com/java-home-on-windows-7-8-10-mac-os-x-linux#1-single-user))
-
   * [MariaDB](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.5.12&os=Linux&cpu=x86_64&i=systemd)
 
 > En cas de difficulté, reportez-vous à la documentation officielle de [JavaFX](https://openjfx.io/openjfx-docs/) et de [MariaDB](https://mariadb.com/kb/en/documentation/).
