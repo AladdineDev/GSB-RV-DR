@@ -10,7 +10,7 @@
             "port": 3306,
             "driver": "MariaDB",
             "name": "GSB-RV-DR",
-            "database": "gsbrv",
+            "database": "gsb_rv_dr",
             "username": "developpeur",
             "password": "azerty"
         }

@@ -1,6 +1,6 @@
-drop database if exists gsbrv;
-create database gsbrv;
-use gsbrv;
+drop database if exists gsb_rv_dr;
+create database gsb_rv_dr;
+use gsb_rv_dr;
 -- MySQL dump 10.13  Distrib 5.5.62, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: gsbrv

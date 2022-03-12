@@ -1,4 +1,4 @@
-use gsbrv;
+use gsb_rv_dr;
 --
 -- Motif
 --
