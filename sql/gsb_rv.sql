@@ -1,18 +1,18 @@
-drop database if exists gsb_rv_dr;
-create database gsb_rv_dr;
-use gsb_rv_dr;
--- MySQL dump 10.13  Distrib 5.5.62, for debian-linux-gnu (x86_64)
+drop database if exists gsb_rv;
+create database gsb_rv;
+use gsb_rv;
+-- MariaDB dump 10.19  Distrib 10.5.15-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: gsbrv
+-- Host: localhost    Database: gsb_rv
 -- ------------------------------------------------------
--- Server version	5.5.62-0+deb8u1
+-- Server version	10.5.15-MariaDB
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
 ;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
 ;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
 ;
-/*!40101 SET NAMES utf8 */
+/*!40101 SET NAMES utf8mb4 */
 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */
 ;
@@ -35,12 +35,12 @@ DROP TABLE IF EXISTS `ActiviteCompl`;
 /*!40101 SET character_set_client = utf8 */
 ;
 CREATE TABLE `ActiviteCompl` (
-  `ac_num` int(11) NOT NULL DEFAULT '0',
+  `ac_num` int(11) NOT NULL DEFAULT 0,
   `ac_date` date DEFAULT NULL,
   `ac_lieu` varchar(50) DEFAULT NULL,
   `ac_theme` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`ac_num`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -64,7 +64,7 @@ CREATE TABLE `Composant` (
   `cmp_code` varchar(8) NOT NULL DEFAULT '',
   `cmp_libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`cmp_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -92,7 +92,7 @@ CREATE TABLE `Constituer` (
   KEY `FK_CONSTITUER_COMPOSANT` (`cmp_code`),
   CONSTRAINT `FK_CONSTITUER_COMPOSANT` FOREIGN KEY (`cmp_code`) REFERENCES `Composant` (`cmp_code`),
   CONSTRAINT `FK_CONSTITUER_MEDICAMENT` FOREIGN KEY (`med_depotlegal`) REFERENCES `Medicament` (`med_depotlegal`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -117,7 +117,7 @@ CREATE TABLE `Dosage` (
   `dos_quantite` varchar(20) DEFAULT NULL,
   `dos_unite` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`dos_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -141,7 +141,7 @@ CREATE TABLE `Famille` (
   `fam_code` varchar(6) NOT NULL DEFAULT '',
   `fam_libelle` varchar(160) DEFAULT NULL,
   PRIMARY KEY (`fam_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -207,7 +207,7 @@ CREATE TABLE `Formuler` (
   KEY `FK_FORMULER_PRESENTATION` (`pre_code`),
   CONSTRAINT `FK_FORMULER_MEDICAMENT` FOREIGN KEY (`med_depotlegaL`) REFERENCES `Medicament` (`med_depotlegal`),
   CONSTRAINT `FK_FORMULER_PRESENTATION` FOREIGN KEY (`pre_code`) REFERENCES `Presentation` (`pre_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -234,7 +234,7 @@ CREATE TABLE `Interagir` (
   KEY `FK_INTERAGIR_PERTURBE_MEDICAMENT` (`med_perturbe`),
   CONSTRAINT `FK_INTERAGIR_PERTURBATEUR_MEDICAMENT` FOREIGN KEY (`med_perturbateur`) REFERENCES `Medicament` (`med_depotlegal`),
   CONSTRAINT `FK_INTERAGIR_PERTURBE_MEDICAMENT` FOREIGN KEY (`med_perturbe`) REFERENCES `Medicament` (`med_depotlegal`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -255,14 +255,14 @@ DROP TABLE IF EXISTS `Inviter`;
 /*!40101 SET character_set_client = utf8 */
 ;
 CREATE TABLE `Inviter` (
-  `ac_num` int(11) NOT NULL DEFAULT '0',
-  `pra_num` int(11) NOT NULL DEFAULT '0',
+  `ac_num` int(11) NOT NULL DEFAULT 0,
+  `pra_num` int(11) NOT NULL DEFAULT 0,
   `specialisation` char(1) DEFAULT NULL,
   PRIMARY KEY (`ac_num`, `pra_num`),
   KEY `FK_INVITER_PRATICIEN` (`pra_num`),
   CONSTRAINT `FK_INVITER_ACTIVITE_COMPL` FOREIGN KEY (`ac_num`) REFERENCES `ActiviteCompl` (`ac_num`),
   CONSTRAINT `FK_INVITER_PRATICIEN` FOREIGN KEY (`pra_num`) REFERENCES `Praticien` (`pra_num`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -287,7 +287,7 @@ CREATE TABLE `Laboratoire` (
   `lab_nom` varchar(20) DEFAULT NULL,
   `lab_chefvente` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`lab_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -322,7 +322,7 @@ CREATE TABLE `Medicament` (
   PRIMARY KEY (`med_depotlegal`),
   KEY `FK_MEDICAMENT_FAMILLE` (`fam_code`),
   CONSTRAINT `FK_MEDICAMENT_FAMILLE` FOREIGN KEY (`fam_code`) REFERENCES `Famille` (`fam_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -588,6 +588,38 @@ VALUES (
 ;
 UNLOCK TABLES;
 --
+-- Table structure for table `Motif`
+--
+DROP TABLE IF EXISTS `Motif`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
+CREATE TABLE `Motif` (
+  `mot_code` varchar(10) NOT NULL DEFAULT '',
+  `mot_libelle` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`mot_code`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `Motif`
+--
+LOCK TABLES `Motif` WRITE;
+/*!40000 ALTER TABLE `Motif` DISABLE KEYS */
+;
+INSERT INTO `Motif`
+VALUES (
+    'NOUV',
+    'Présentation de nouveautés / actualisation'
+  ),
+  ('PERIO', 'Visite périodique'),
+  ('REMON', 'Remontage'),
+  ('SOLI', 'Solicitation');
+/*!40000 ALTER TABLE `Motif` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
 -- Table structure for table `Offrir`
 --
 DROP TABLE IF EXISTS `Offrir`;
@@ -597,13 +629,13 @@ DROP TABLE IF EXISTS `Offrir`;
 ;
 CREATE TABLE `Offrir` (
   `vis_matricule` varchar(20) NOT NULL DEFAULT '',
-  `rap_num` int(11) NOT NULL DEFAULT '0',
+  `rap_num` int(11) NOT NULL DEFAULT 0,
   `med_depotlegal` varchar(20) NOT NULL DEFAULT '',
-  `off_quantite` int(2) NOT NULL DEFAULT '1',
+  `off_quantite` int(2) NOT NULL DEFAULT 1,
   PRIMARY KEY (`vis_matricule`, `rap_num`, `med_depotlegal`),
   KEY `FK_OFFRIR_MEDICAMENT` (`med_depotlegal`),
   CONSTRAINT `FK_OFFRIR_MEDICAMENT` FOREIGN KEY (`med_depotlegal`) REFERENCES `Medicament` (`med_depotlegal`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -627,7 +659,7 @@ DROP TABLE IF EXISTS `Posseder`;
 /*!40101 SET character_set_client = utf8 */
 ;
 CREATE TABLE `Posseder` (
-  `pra_num` int(11) NOT NULL DEFAULT '0',
+  `pra_num` int(11) NOT NULL DEFAULT 0,
   `spe_code` varchar(10) NOT NULL DEFAULT '',
   `pos_diplome` varchar(20) DEFAULT NULL,
   `pos_coefprescription` float DEFAULT NULL,
@@ -635,7 +667,7 @@ CREATE TABLE `Posseder` (
   KEY `FK_POSSEDER_SPECIALITE` (`spe_code`),
   CONSTRAINT `FK_POSSEDER_PRATICIEN` FOREIGN KEY (`pra_num`) REFERENCES `Praticien` (`pra_num`),
   CONSTRAINT `FK_POSSEDER_SPECIALITE` FOREIGN KEY (`spe_code`) REFERENCES `Specialite` (`spe_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -656,7 +688,7 @@ DROP TABLE IF EXISTS `Praticien`;
 /*!40101 SET character_set_client = utf8 */
 ;
 CREATE TABLE `Praticien` (
-  `pra_num` int(11) NOT NULL DEFAULT '0',
+  `pra_num` int(11) NOT NULL DEFAULT 0,
   `pra_nom` varchar(50) DEFAULT NULL,
   `pra_prenom` varchar(60) DEFAULT NULL,
   `pra_adresse` varchar(100) DEFAULT NULL,
@@ -667,7 +699,7 @@ CREATE TABLE `Praticien` (
   PRIMARY KEY (`pra_num`),
   KEY `FK_PRATICIEN_TYPE_PRATICIEN` (`typ_code`),
   CONSTRAINT `FK_PRATICIEN_TYPE_PRATICIEN` FOREIGN KEY (`typ_code`) REFERENCES `TypePraticien` (`typ_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1559,7 +1591,7 @@ CREATE TABLE `Prescrire` (
   CONSTRAINT `FK_PRESCRIRE_DOSAGE` FOREIGN KEY (`dos_code`) REFERENCES `Dosage` (`dos_code`),
   CONSTRAINT `FK_PRESCRIRE_MEDICAMENT` FOREIGN KEY (`med_depotlegal`) REFERENCES `Medicament` (`med_depotlegal`),
   CONSTRAINT `FK_PRESCRIRE_TYPE_INDIVIDU` FOREIGN KEY (`tin_code`) REFERENCES `TypeIndividu` (`tin_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1583,7 +1615,7 @@ CREATE TABLE `Presentation` (
   `pre_code` varchar(4) NOT NULL DEFAULT '',
   `pre_libelle` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pre_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1605,37 +1637,140 @@ DROP TABLE IF EXISTS `RapportVisite`;
 ;
 CREATE TABLE `RapportVisite` (
   `vis_matricule` varchar(20) NOT NULL DEFAULT '',
-  `rap_num` int(11) NOT NULL DEFAULT '0',
+  `rap_num` int(11) NOT NULL DEFAULT 0,
   `rap_date_visite` date NOT NULL,
   `rap_date_redaction` date NOT NULL,
   `rap_bilan` varchar(510) DEFAULT '',
-  `rap_coefficient` int NOT NULL,
+  `rap_coefficient` int(11) NOT NULL,
   `pra_num` int(11) DEFAULT NULL,
   `rap_motif` varchar(10) DEFAULT NULL,
-  `rap_lu` boolean DEFAULT false,
+  `rap_lu` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`vis_matricule`, `rap_num`),
   KEY `FK_RAPPORT_VISITE_PRATICIEN` (`pra_num`),
+  KEY `FK_RAPPORT_MOTIF` (`rap_motif`),
+  CONSTRAINT `FK_RAPPORT_MOTIF` FOREIGN KEY (`rap_motif`) REFERENCES `Motif` (`mot_code`),
   CONSTRAINT `FK_RAPPORT_VISITE_PRATICIEN` FOREIGN KEY (`pra_num`) REFERENCES `Praticien` (`pra_num`),
-  CONSTRAINT `FK_RAPPORT_VISITE_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`),
-  CONSTRAINT `FK_RAPPORT_MOTIF` FOREIGN KEY (`rap_motif`) REFERENCES `Motif` (`mot_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  CONSTRAINT `FK_RAPPORT_VISITE_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
---
--- Table structure for table `Motif`
---
-DROP TABLE IF EXISTS `Motif`;
-CREATE TABLE `Motif` (
-  `mot_code` varchar(10) NOT NULL DEFAULT '',
-  `mot_libelle` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`mot_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 --
 -- Dumping data for table `RapportVisite`
 --
 LOCK TABLES `RapportVisite` WRITE;
 /*!40000 ALTER TABLE `RapportVisite` DISABLE KEYS */
 ;
+INSERT INTO `RapportVisite`
+VALUES (
+    'a131',
+    1,
+    '2021-09-05',
+    '2021-09-06',
+    'L\'entrevue a duré 35 minutes, et le praticien a été receptif.',
+    3,
+    57,
+    'PERIO',
+    0
+  ),
+  (
+    'a17',
+    2,
+    '2021-09-14',
+    '2021-09-16',
+    'L\'entrevue a duré 20 minutes, et le praticien n\'a pas été receptif.',
+    2,
+    53,
+    'NOUV',
+    0
+  ),
+  (
+    'a17',
+    5,
+    '2021-10-01',
+    '2021-10-05',
+    'L\'entrevue n\'a durée que 15 minutes, car le praticien n\'a pas souhaité poursuivre.',
+    1,
+    18,
+    'NOUV',
+    0
+  ),
+  (
+    'a17',
+    6,
+    '2021-10-06',
+    '2021-10-08',
+    'L\'entrevue a duré 25 minutes, et le praticien était hésitant.',
+    2,
+    62,
+    'PERIO',
+    0
+  ),
+  (
+    'a17',
+    8,
+    '2021-10-12',
+    '2021-10-14',
+    'L\'entrevue a duré 20 minutes, et le praticien n\'a pas été receptif.',
+    2,
+    84,
+    'NOUV',
+    0
+  ),
+  (
+    'a17',
+    10,
+    '2021-10-17',
+    '2021-10-30',
+    'L\'entrevue a duré 40 minutes, et une autre visite a été planifiée avec le praticien.',
+    5,
+    36,
+    'SOLI',
+    0
+  ),
+  (
+    'b16',
+    3,
+    '2021-09-14',
+    '2021-09-15',
+    'L\'entrevue a duré 2 minutes, et le praticien m\'a chassé de son cabinet.',
+    0,
+    8,
+    'REMON',
+    0
+  ),
+  (
+    'b16',
+    9,
+    '2021-10-24',
+    '2021-10-25',
+    'L\'entrevue a duré 2 minutes, et le praticien m\'a chassé de son cabinet.',
+    0,
+    30,
+    'REMON',
+    0
+  ),
+  (
+    'g53',
+    4,
+    '2021-09-23',
+    '2021-09-26',
+    'L\'entrevue a duré 45 minutes, et le praticien a été très enthousiaste.',
+    5,
+    13,
+    'NOUV',
+    0
+  ),
+  (
+    'o26',
+    7,
+    '2021-10-07',
+    '2021-10-08',
+    'L\'entrevue a duré 40 minutes, et une autre visite a été planifiée avec le praticien.',
+    5,
+    69,
+    'SOLI',
+    0
+  );
 /*!40000 ALTER TABLE `RapportVisite` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -1648,13 +1783,13 @@ DROP TABLE IF EXISTS `Realiser`;
 /*!40101 SET character_set_client = utf8 */
 ;
 CREATE TABLE `Realiser` (
-  `ac_num` int(11) NOT NULL DEFAULT '0',
+  `ac_num` int(11) NOT NULL DEFAULT 0,
   `vis_matricule` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`ac_num`, `vis_matricule`),
   KEY `FK_REALISER_VISITEUR` (`vis_matricule`),
   CONSTRAINT `FK_REALISER_ACTIVITE_COMPL` FOREIGN KEY (`ac_num`) REFERENCES `ActiviteCompl` (`ac_num`),
   CONSTRAINT `FK_REALISER_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1681,7 +1816,7 @@ CREATE TABLE `Region` (
   PRIMARY KEY (`reg_code`),
   KEY `FK_REGION_SECTEUR` (`sec_code`),
   CONSTRAINT `FK_REGION_SECTEUR` FOREIGN KEY (`sec_code`) REFERENCES `Secteur` (`sec_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1728,7 +1863,7 @@ CREATE TABLE `Secteur` (
   `sec_code` varchar(2) NOT NULL DEFAULT '',
   `sec_libelle` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`sec_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1758,7 +1893,7 @@ CREATE TABLE `Specialite` (
   `spe_code` varchar(10) NOT NULL DEFAULT '',
   `spe_libelle` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`spe_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1859,7 +1994,7 @@ CREATE TABLE `Travailler` (
   KEY `FK_TRAVAILLER_REGION` (`reg_code`),
   CONSTRAINT `FK_TRAVAILLER_REGION` FOREIGN KEY (`reg_code`) REFERENCES `Region` (`reg_code`),
   CONSTRAINT `FK_TRAVAILLER_VISITEUR` FOREIGN KEY (`vis_matricule`) REFERENCES `Visiteur` (`vis_matricule`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1958,7 +2093,7 @@ CREATE TABLE `TypeIndividu` (
   `tin_code` varchar(10) NOT NULL DEFAULT '',
   `tin_libelle` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`tin_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1983,7 +2118,7 @@ CREATE TABLE `TypePraticien` (
   `typ_libelle` varchar(50) DEFAULT NULL,
   `typ_lieu` varchar(70) DEFAULT NULL,
   PRIMARY KEY (`typ_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -2033,7 +2168,7 @@ CREATE TABLE `Visiteur` (
   KEY `FK_VISITEUR_LABORATOIRE` (`lab_code`),
   CONSTRAINT `FK_VISITEUR_LABORATOIRE` FOREIGN KEY (`lab_code`) REFERENCES `Laboratoire` (`lab_code`),
   CONSTRAINT `FK_VISITEUR_SECTEUR` FOREIGN KEY (`sec_code`) REFERENCES `Secteur` (`sec_code`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -2866,4 +3001,4 @@ UNLOCK TABLES;
 ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
 ;
--- Dump completed on 2019-03-18 15:08:55
+-- Dump completed on 2022-03-14 10:41:04

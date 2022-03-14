@@ -38,11 +38,11 @@ $ git clone https://github.com/Aaldn/GSB-RV-DR
 $ cd GSB-RV-DR
 ```
 
-Ensuite, exécutez les scripts de création et de peuplement de la base de données et créez son utilisateur :
+Ensuite, exécutez le script de création de la base de données et créez son utilisateur :
 
 ```bash
-$ mariadb -e "source sql/gsb_rv_dr.sql; source sql/peupler_gsb_rv_dr.sql;"
-$ mariadb -e "grant all privileges on gsb_rv_dr.* to developpeur identified by \"azerty\";"
+$ mariadb -e "source sql/gsb_rv.sql;"
+$ mariadb -e "grant all privileges on gsb_rv.* to developpeur identified by \"azerty\";"
 ```
 
 Enfin, lancez l'application :
