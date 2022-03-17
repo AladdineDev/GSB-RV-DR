@@ -7,7 +7,7 @@ GSB Rapports Visite - module Délégué Régional – par [@Aaldn](https://githu
 
 [![Java 17](https://img.shields.io/badge/Java-17-0074bd.svg?style=flat-square&logo=java)](https://openjdk.java.net/) [![JavaFX 17](https://img.shields.io/badge/JavaFX-17-53829e.svg?style=flat-square&logo=java)](https://openjfx.io/) [![Gradle 7](https://img.shields.io/badge/Gradle-7.3-02303a.svg?style=flat-square&logo=gradle)](https://gradle.org/) [![Mariadb 10](https://img.shields.io/badge/MariaDB-10.5-c0765a.svg?style=flat-square&logo=mariadb)](https://mariadb.org/) 
 
-Application de suivi des rapports de visite.
+Application de bureau de suivi des rapports de visite.
 
 <img src="screenshots/Connexion.png" width="49.5%"></img> <img src="screenshots/Rapports.png" width="48.5%"></img> 
 
