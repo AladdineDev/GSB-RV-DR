@@ -118,7 +118,7 @@ public class App extends Application {
 
         itemQuitter.setOnAction(actionEvent -> {
             Alert alertQuitter = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous quitter l'application ?",
-                    ButtonType.YES, ButtonType.NO);
+                    new ButtonType("Oui", ButtonData.YES), new ButtonType("Non", ButtonData.NO));
             alertQuitter.setTitle("Quitter");
             alertQuitter.setHeaderText("Demande de confirmation");
 
