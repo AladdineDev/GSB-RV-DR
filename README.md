@@ -18,9 +18,9 @@ Application de bureau de suivi des rapports de visite.
 
 ### Contexte
 
-1. [GSB - Fiche descriptive](docs/01-GSB-AppliRV-FicheDescriptive.pdf)
-2. [GSB - Cas d'utilisation](docs/02-GSB-AppliRV-DR-UC.pdf)
-3. [GSB - Modèle Entité-Association](docs/03-GSB-AppliRV-MEA.pdf)
+1. [GSB - Fiche descriptive](docs/contexte/01-GSB-AppliRV-FicheDescriptive.pdf)
+2. [GSB - Cas d'utilisation](docs/contexte/02-GSB-AppliRV-DR-UC.pdf)
+3. [GSB - Modèle Entité-Association](docs/contexte/03-GSB-AppliRV-MEA.pdf)
 
 ### Prérequis
 
