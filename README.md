@@ -5,7 +5,10 @@ GSB RV DR [![Licence](https://img.shields.io/badge/licence-MIT-2fba00.svg?style=
 
 GSB Rapports Visite - module Délégué Régional – par [@Aaldn](https://github.com/Aaldn)
 
-[![Java 17](https://img.shields.io/badge/Java-17-0074bd.svg?style=flat-square&logo=java)](https://openjdk.java.net/) [![JavaFX 17](https://img.shields.io/badge/JavaFX-17-53829e.svg?style=flat-square&logo=java)](https://openjfx.io/) [![Gradle 7](https://img.shields.io/badge/Gradle-7.3-02303a.svg?style=flat-square&logo=gradle)](https://gradle.org/) [![Mariadb 10](https://img.shields.io/badge/MariaDB-10.5-c0765a.svg?style=flat-square&logo=mariadb)](https://mariadb.org/) 
+[![Java 17](https://img.shields.io/badge/Java-17-0074bd.svg?style=flat-square&logo=java)](https://openjdk.java.net/)
+[![JavaFX 17](https://img.shields.io/badge/JavaFX-17-53829e.svg?style=flat-square&logo=java)](https://openjfx.io/)
+[![Gradle 7](https://img.shields.io/badge/Gradle-7.3-02303a.svg?style=flat-square&logo=gradle)](https://gradle.org/)
+[![Mariadb 10](https://img.shields.io/badge/MariaDB-10.5-c0765a.svg?style=flat-square&logo=mariadb)](https://mariadb.org/) 
 
 Application de bureau de suivi des rapports de visite.
 <div><img src="screenshots/3-Connexion.png" width="49%"></img> <img src="screenshots/9-Consultation Détaillée Rapport.png" width="49%"></div>
@@ -13,8 +16,8 @@ Application de bureau de suivi des rapports de visite.
 
 ### Documentation
 
-  * [Documentation utilisateur](docs/Documentation-Utilisateur.pdf) _(À venir)_
-  * [Documentation technique](docs/Documentation-Technique.pdf) _(À venir)_
+  * [Documentation utilisateur](docs/Documentation-Utilisateur.pdf)
+  * [Documentation technique](docs/Documentation-Technique.pdf)
 
 ### Contexte
 
