@@ -1,9 +1,9 @@
 <img src="app/src/main/resources/logo.png" align="right" width="200px"/>
 
-GSB RV DR [![Licence](https://img.shields.io/badge/licence-MIT-2fba00.svg?style=flat-square)](https://github.com/Aaldn/GSB-RV-DR/blob/master/LICENSE.md)
+GSB RV DR [![Licence](https://img.shields.io/badge/licence-MIT-2fba00.svg?style=flat-square)](https://github.com/AladdineDev/GSB-RV-DR/blob/master/LICENSE.md)
 ========================
 
-GSB Rapports Visite - module Délégué Régional – par [@Aaldn](https://github.com/Aaldn)
+GSB Rapports Visite - module Délégué Régional – par [@AladdineDev](https://github.com/AladdineDev)
 
 [![Java 17](https://img.shields.io/badge/Java-17-0074bd.svg?style=flat-square&logo=java)](https://openjdk.java.net/)
 [![JavaFX 17](https://img.shields.io/badge/JavaFX-17-53829e.svg?style=flat-square&logo=java)](https://openjfx.io/)
@@ -38,7 +38,7 @@ Application de bureau de suivi des rapports de visite.
 Tout d'abord, clonez ce dépôt puis placez-vous au sein du projet :
 
 ```bash
-$ git clone https://github.com/Aaldn/GSB-RV-DR
+$ git clone https://github.com/AladdineDev/GSB-RV-DR
 $ cd GSB-RV-DR
 ```
 
@@ -57,4 +57,4 @@ $ ./gradlew run
 
 ## Licence
 
-Voir le fichier [LICENSE.md](https://github.com/Aaldn/GSB-RV-DR/blob/master/LICENSE.md) fourni.
+Voir le fichier [LICENSE.md](https://github.com/AladdineDev/GSB-RV-DR/blob/master/LICENSE.md) fourni.
